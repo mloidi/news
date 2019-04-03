@@ -1,0 +1,145 @@
+import styled from 'styled-components';
+
+export const NewsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  align-content: start;
+  justify-content: space-around;
+  grid-column-gap: 1rem;
+  margin: 4rem;
+  @media all and (max-width: 900px) {
+    grid-template-columns: 100%;
+    margin: 1rem;
+  }
+`;
+
+export const PageTitle = styled.h1`
+  font-family: 'Monoton', cursive;
+  margin: 3rem;
+  padding: 1rem;
+  font-size: 4rem;
+  color: #ecd018;
+  background-color: black;
+  @media all and (max-width: 900px) {
+    margin: 1rem;
+    font-size: 2em;
+  }
+`;
+
+export const CategoryTitle = styled.h2`
+  font-family: 'Fredericka the Great', cursive;
+  margin-left: 3rem;
+  font-size: 2rem;
+  color: black;
+  @media all and (max-width: 900px) {
+    margin: 1rem;
+    font-size: 2em;
+  }
+`;
+
+export const Category = styled.div`
+  margin-left: 3rem;
+  @media all and (max-width: 900px) {
+    margin: 1rem;
+    font-size: 2em;
+  }
+`;
+
+export const CategoryButton = styled.button`
+  font-family: 'Fredericka the Great', cursive;
+  text-transform: uppercase;
+  background-color: white;
+  color: black;
+  border: 0.1rem solid black;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background-color: black;
+    color: #ecd018;
+  }
+  @media all and (max-width: 900px) {
+    margin: 0.2rem;
+    font-size: 1rem;
+  }
+`;
+
+export const CategoryButtonSelected = styled.button`
+  font-family: 'Fredericka the Great', cursive;
+  text-transform: uppercase;
+  background-color: black;
+  color: #ecd018;
+  border: 0.1rem solid black;
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  &:hover,
+  &:focus {
+    background-color: black;
+    color: #ecd018;
+  }
+  @media all and (max-width: 900px) {
+    margin: 0.2rem;
+    font-size: 1rem;
+  }
+`;
+
+export const Footer = styled.footer`
+  display: grid;
+  justify-content: center;
+`;
+
+export const Polaroid = styled.div`
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2),
+    0 0.5rem 1rem 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 1rem;
+  @media all and (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
+export const Title = styled.div`
+  text-align: center;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+`;
+
+export const Details = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+`;
+
+export const Author = styled.div`
+  text-align: center;
+  padding: 0 1.5rem;
+  font-size: 0.8rem;
+  color: gray;
+`;
+
+export const PublishedAt = styled.div`
+  text-align: center;
+  padding: 0 1.5rem;
+  font-size: 0.8rem;
+  color: gray;
+`;
+
+export const Description = styled.p`
+  text-align: center;
+  padding: 1rem 1.5rem;
+  color: gray;
+  word-wrap: break-word;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+`;
+
+export const Link = styled.a`
+  color: black;
+  text-decoration: none;
+  border-bottom: 2px solid #ecd018;
+`;
