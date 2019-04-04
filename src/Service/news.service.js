@@ -27,6 +27,7 @@ export const NewsService = {
   getCategories: () => {
     const categories = [
       { name: 'entertainment', isActive: false },
+      { name: 'business', isActive: false },
       { name: 'general', isActive: false },
       { name: 'health', isActive: false },
       { name: 'science', isActive: false },
