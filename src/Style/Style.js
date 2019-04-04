@@ -33,7 +33,7 @@ export const CategoryTitle = styled.h2`
   color: black;
   @media all and (max-width: 900px) {
     margin: 1rem;
-    font-size: 2em;
+    font-size: 1.5em;
   }
 `;
 
@@ -62,7 +62,7 @@ export const CategoryButton = styled.button`
   }
   @media all and (max-width: 900px) {
     margin: 0.2rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 `;
 
