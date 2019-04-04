@@ -92,6 +92,9 @@ export const SearchArea = styled.div`
   grid-column-gap: 1rem;
   justify-items: start;
   margin-top: 1rem;
+  @media all and (max-width: 900px) {
+    grid-template-columns: auto;
+  }
 `;
 
 export const SearchTitle = styled.div`
@@ -101,14 +104,13 @@ export const SearchTitle = styled.div`
   color: black;
   font-weight: bold;
   @media all and (max-width: 900px) {
-    margin: 1rem;
-    font-size: 2em;
+    margin-left: 1rem;
+    font-size: 1.5em;
   }
 `;
 
 export const SearchBy = styled.input`
   font-family: 'Fredericka the Great', cursive;
-
   padding: 0.5rem;
   font-size: 1rem;
   border: 0;
@@ -123,8 +125,7 @@ export const SearchBy = styled.input`
     }
   }
   @media all and (max-width: 900px) {
-    margin: 1rem;
-    font-size: 2em;
+    margin-left: 1rem;
   }
 `;
 
