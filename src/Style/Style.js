@@ -188,7 +188,7 @@ export const Image = styled.img`
 `;
 
 export const Link = styled.a`
-  color: black;
+  color: ${props => props.color || 'black'};
   text-decoration: none;
   border-bottom: 2px solid #ecd018;
 `;

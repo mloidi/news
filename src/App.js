@@ -81,7 +81,12 @@ class App extends Component {
           </title>
         </Helmet>
         <PageTitle>
-          News about {this.state.category ? this.state.category : '...'}
+          News about{' '}
+          {this.state.category ? (
+            <Link color='#ecd018' href={process.env.REACT_APP_HOME_URL}>{this.state.category}</Link>
+          ) : (
+            '...'
+          )}
         </PageTitle>
         <CategoryTitle>Select a category</CategoryTitle>
         <Category>
