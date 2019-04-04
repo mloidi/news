@@ -86,6 +86,48 @@ export const CategoryButtonSelected = styled.button`
   }
 `;
 
+export const SearchArea = styled.div`
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 1rem;
+  justify-items: start;
+  margin-top: 1rem;
+`;
+
+export const SearchTitle = styled.div`
+  font-family: 'Fredericka the Great', cursive;
+  margin-left: 3rem;
+  font-size: 2rem;
+  color: black;
+  font-weight: bold;
+  @media all and (max-width: 900px) {
+    margin: 1rem;
+    font-size: 2em;
+  }
+`;
+
+export const SearchBy = styled.input`
+  font-family: 'Fredericka the Great', cursive;
+
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 0;
+  border-bottom: 0.1rem dashed grey;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    outline: none;
+    border-bottom: 0.1rem solid #ecd018;
+    &:after {
+      width: calc(100% - 60px);
+    }
+  }
+  @media all and (max-width: 900px) {
+    margin: 1rem;
+    font-size: 2em;
+  }
+`;
+
 export const Footer = styled.footer`
   display: grid;
   justify-content: center;
@@ -97,6 +139,12 @@ export const Polaroid = styled.div`
   box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2),
     0 0.5rem 1rem 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 1rem;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2),
+      0 1rem 2rem 0 rgba(0, 0, 0, 0.19);
+  }
   @media all and (max-width: 900px) {
     width: 100%;
   }

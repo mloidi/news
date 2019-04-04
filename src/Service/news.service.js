@@ -1,16 +1,12 @@
-// const url =
-//   process.env.REACT_APP_NEWS_URL +
-//   'top-headlines?country=us&category=technology&sortBy=popularity' +
-//   '&apiKey=' +
-//   process.env.REACT_APP_NEWS_API;
-
 export const NewsService = {
-  getTopHeadlines: async category => {
+  getTopHeadlines: async (category, searchBy) => {
     let res;
     const url =
       process.env.REACT_APP_NEWS_URL +
-      'top-headlines?country=us&category=' +
-      category +
+      'top-headlines?country=us' +
+      (category ? '&category=' + category : '') +
+      (searchBy ? '&q=' + searchBy : '') +
+      '&pageSize=100' +
       '&sortBy=popularity' +
       '&apiKey=' +
       process.env.REACT_APP_NEWS_API;

@@ -13,8 +13,12 @@ import {
   Description
 } from '../Style/Style';
 
+const goTo = url => {
+  window.open(url,'_blank');
+};
+
 const New = props => (
-  <Polaroid>
+  <Polaroid onClick={() => goTo(props.new.url)}>
     <Image src={props.new.urlToImage} />
     <Title>
       {props.new.url ? (

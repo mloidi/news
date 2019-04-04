@@ -10,6 +10,9 @@ import {
   CategoryTitle,
   Link,
   Category,
+  SearchArea,
+  SearchTitle,
+  SearchBy,
   Footer
 } from './Style/Style';
 
@@ -17,7 +20,8 @@ class App extends Component {
   state = {
     category: null,
     categories: null,
-    news: null
+    news: null,
+    searchBy: ''
   };
 
   componentDidMount() {
@@ -26,8 +30,8 @@ class App extends Component {
     });
   }
 
-  getTopHeadlines = async category => {
-    await NewsService.getTopHeadlines(category)
+  getTopHeadlines = async (category, searchBy) => {
+    await NewsService.getTopHeadlines(category, searchBy)
       .then(response => {
         this.setState({
           news: response.articles
@@ -50,8 +54,24 @@ class App extends Component {
     this.setState({
       category
     });
-    this.getTopHeadlines(category);
+
+    const searchBy = this.state.searchBy;
+    this.getTopHeadlines(category, searchBy);
   };
+
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+
+    const category = this.state.category;
+    this.getTopHeadlines(category, value);
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -74,6 +94,16 @@ class App extends Component {
               />
             ))}
         </Category>
+        <SearchArea>
+          <SearchTitle>Or search</SearchTitle>
+          <SearchBy
+            type="text"
+            id="searchBy"
+            name="searchBy"
+            value={this.state.searchBy}
+            onChange={this.handleInputChange}
+          />
+        </SearchArea>
         <NewsContainer>
           {this.state.news
             ? Object.keys(this.state.news).map(key => (
