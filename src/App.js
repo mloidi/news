@@ -25,6 +25,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.getTopHeadlines();
     this.setState({
       categories: NewsService.getCategories()
     });
