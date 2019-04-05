@@ -6,7 +6,6 @@ import {
   Polaroid,
   Image,
   Title,
-  Link,
   Details,
   Author,
   PublishedAt,
@@ -14,26 +13,32 @@ import {
 } from '../Style/Style';
 
 const goTo = url => {
-  window.open(url,'_blank');
+  window.open(url, '_blank');
+};
+
+const checkText = text => {
+  if (text && (text.startsWith('https://') || text.startsWith('http://')))
+    return null;
+  return text;
 };
 
 const New = props => (
   <Polaroid onClick={() => goTo(props.new.url)}>
     <Image src={props.new.urlToImage} />
-    <Title>
-      {props.new.url ? (
-        <Link target="_blank" rel="noopener noreferrer" href={props.new.url}>
-          {props.new.title}
-        </Link>
-      ) : (
-        <React.Fragment>{props.item.title}</React.Fragment>
-      )}
-    </Title>
+    <Title>{props.new.title}</Title>
     <Details>
-      {props.new.author ? <Author>By {props.new.author}</Author> : <div />}
+      {checkText(props.new.author) ? (
+        <Author>By {props.new.author}</Author>
+      ) : (
+        <div />
+      )}
       <PublishedAt>{formatDate(props.new.publishedAt)}</PublishedAt>
     </Details>
-    <Description>{props.new.description}</Description>
+    {checkText(props.new.description) ? (
+      <Description>{props.new.description}</Description>
+    ) : (
+      <div />
+    )}
   </Polaroid>
 );
 

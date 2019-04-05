@@ -155,6 +155,9 @@ export const Title = styled.div`
   text-align: center;
   padding: 1rem 1.5rem;
   font-size: 1.5rem;
+  /* text-decoration: underline;
+  text-decoration-color: #ecd018; */
+  text-shadow: 3px 2px #ecd018;
 `;
 
 export const Details = styled.div`
