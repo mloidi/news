@@ -1,9 +1,12 @@
 export const NewsService = {
-  getTopHeadlines: async (category, searchBy) => {
+  getTopHeadlines: async (category, searchBy, country) => {
+    console.log('getTopHeadlines');
+    console.log(country);
     let res;
     const url =
       process.env.REACT_APP_NEWS_URL +
-      'top-headlines?country=us' +
+      'top-headlines?country=' +
+      (country ? country : 'us') +
       (category ? '&category=' + category : '') +
       (searchBy ? '&q=' + searchBy : '') +
       '&pageSize=100' +
@@ -21,7 +24,7 @@ export const NewsService = {
     return res;
   },
   getCategories: () => {
-    const categories = [
+    return [
       { name: 'entertainment', isActive: false },
       { name: 'business', isActive: false },
       { name: 'general', isActive: false },
@@ -30,6 +33,12 @@ export const NewsService = {
       { name: 'sports', isActive: false },
       { name: 'technology', isActive: false }
     ];
-    return categories;
+  },
+  getCountries: () => {
+    return [
+      { code: 'us', isActive: true },
+      { code: 'fr', isActive: false },
+      { code: 'gb', isActive: false }
+    ];
   }
 };

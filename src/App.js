@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 
 import { NewsService } from './Service/news.service';
 import New from './Components/New';
@@ -13,7 +15,9 @@ import {
   SearchArea,
   SearchTitle,
   SearchBy,
-  Footer
+  Footer,
+  PageTop,
+  CountrySelector
 } from './Style/Style';
 
 class App extends Component {
@@ -21,18 +25,21 @@ class App extends Component {
     category: null,
     categories: null,
     news: null,
-    searchBy: ''
+    searchBy: '',
+    countries: null
   };
 
   componentDidMount() {
     this.getTopHeadlines();
     this.setState({
-      categories: NewsService.getCategories()
+      categories: NewsService.getCategories(),
+      countries: NewsService.getCountries()
     });
   }
 
   getTopHeadlines = async (category, searchBy) => {
-    await NewsService.getTopHeadlines(category, searchBy)
+    const country = this.getActiveCountry();
+    await NewsService.getTopHeadlines(category, searchBy, country)
       .then(response => {
         this.setState({
           news: response.articles
@@ -73,6 +80,40 @@ class App extends Component {
     this.getTopHeadlines(category, value);
   };
 
+  handleSelectChange = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    // const countries = { ...this.state.countries };
+    const countries = this.state.countries.map(country => {
+      if (country.code === value) {
+        country.isActive = true;
+      } else {
+        country.isActive = false;
+      }
+      return country;
+    });
+    this.setState({
+      [name]: countries
+    });
+
+    this.getActiveCountry();
+  };
+
+  getActiveCountry = () => {
+    // if (this.state.countries) {
+    //   const selectedCountry = this.state.countries.filter(country => {
+    //     return country.isActive;
+    //   });
+    //   console.log('getActiveCountry: ');
+    //   console.log(selectedCountry);
+    //   return selectedCountry.code;
+    // } else {
+    //   return 'us';
+    // }
+    return 'us';
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -81,10 +122,40 @@ class App extends Component {
             News about {this.state.category ? this.state.category : '...'}
           </title>
         </Helmet>
+        <PageTop>
+          <div>
+            Powered by{' '}
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://newsapi.org"
+            >
+              NewsApi.org
+            </Link>
+          </div>
+          {/* <CountrySelector>
+            <FontAwesomeIcon icon={faGlobeAmericas} />
+            {this.state.countries && (
+              <select
+                value={this.getActiveCountry()}
+                onChange={this.handleSelectChange}
+                name="countries"
+              >
+                {this.state.countries.map(country => (
+                  <option key={country.code} value={country.code}>
+                    {country.code}
+                  </option>
+                ))}
+              </select>
+            )}
+          </CountrySelector> */}
+        </PageTop>
         <PageTitle>
           News about{' '}
           {this.state.category ? (
-            <Link color='#ecd018' href={process.env.REACT_APP_HOME_URL}>{this.state.category}</Link>
+            <Link color="#ecd018" href={process.env.REACT_APP_HOME_URL}>
+              {this.state.category}
+            </Link>
           ) : (
             '...'
           )}

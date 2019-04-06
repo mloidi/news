@@ -15,15 +15,33 @@ export const NewsContainer = styled.div`
 
 export const PageTitle = styled.h1`
   font-family: 'Monoton', cursive;
-  margin: 3rem;
+  margin: 0.5rem 3rem 3rem 3rem;
   padding: 1rem;
   font-size: 4rem;
   color: #ecd018;
   background-color: black;
   @media all and (max-width: 900px) {
     margin: 1rem;
-    font-size: 2em;
+    font-size: 2rem;
   }
+`;
+
+export const PageTop = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-top: 0.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  @media all and (max-width: 900px) {
+    margin-left: 1rem;
+  }
+`;
+
+export const CountrySelector = styled.div`
+  font-size: 1.3rem;
 `;
 
 export const CategoryTitle = styled.h2`
