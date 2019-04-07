@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobeAmericas } from '@fortawesome/free-solid-svg-icons';
 
 import { NewsService } from './Service/news.service';
 import New from './Components/New';
@@ -17,7 +15,8 @@ import {
   SearchBy,
   Footer,
   PageTop,
-  CountrySelector
+  CountrySelector,
+  Flag
 } from './Style/Style';
 
 class App extends Component {
@@ -26,6 +25,7 @@ class App extends Component {
     categories: null,
     news: null,
     searchBy: '',
+    country: 'us',
     countries: null
   };
 
@@ -37,8 +37,7 @@ class App extends Component {
     });
   }
 
-  getTopHeadlines = async (category, searchBy) => {
-    const country = this.getActiveCountry();
+  getTopHeadlines = async (category, searchBy, country) => {
     await NewsService.getTopHeadlines(category, searchBy, country)
       .then(response => {
         this.setState({
@@ -64,7 +63,29 @@ class App extends Component {
     });
 
     const searchBy = this.state.searchBy;
-    this.getTopHeadlines(category, searchBy);
+    const country = this.state.country.code;
+    this.getTopHeadlines(category, searchBy, country);
+  };
+
+  selectCountry = selectedCountryCode => {
+    const countries = this.state.countries.map(country => {
+      if (country.code === selectedCountryCode) {
+        country.isActive = true;
+      } else {
+        country.isActive = false;
+      }
+      return country;
+    });
+    const country = countries.filter(country => {
+      return country.isActive;
+    })[0];
+    this.setState({
+      countries,
+      country
+    });
+    const searchBy = this.state.searchBy;
+    const category = this.state.category;
+    this.getTopHeadlines(category, searchBy, country.code);
   };
 
   handleInputChange = event => {
@@ -77,41 +98,19 @@ class App extends Component {
     });
 
     const category = this.state.category;
-    this.getTopHeadlines(category, value);
-  };
-
-  handleSelectChange = event => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    // const countries = { ...this.state.countries };
-    const countries = this.state.countries.map(country => {
-      if (country.code === value) {
-        country.isActive = true;
-      } else {
-        country.isActive = false;
-      }
-      return country;
-    });
-    this.setState({
-      [name]: countries
-    });
-
-    this.getActiveCountry();
+    const country = this.state.country.code;
+    this.getTopHeadlines(category, value, country);
   };
 
   getActiveCountry = () => {
-    // if (this.state.countries) {
-    //   const selectedCountry = this.state.countries.filter(country => {
-    //     return country.isActive;
-    //   });
-    //   console.log('getActiveCountry: ');
-    //   console.log(selectedCountry);
-    //   return selectedCountry.code;
-    // } else {
-    //   return 'us';
-    // }
-    return 'us';
+    if (this.state.countries) {
+      const selectedCountry = this.state.countries.filter(country => {
+        return country.isActive;
+      });
+      return selectedCountry.code;
+    } else {
+      return 'us';
+    }
   };
 
   render() {
@@ -133,22 +132,22 @@ class App extends Component {
               NewsApi.org
             </Link>
           </div>
-          {/* <CountrySelector>
-            <FontAwesomeIcon icon={faGlobeAmericas} />
-            {this.state.countries && (
-              <select
-                value={this.getActiveCountry()}
-                onChange={this.handleSelectChange}
-                name="countries"
-              >
-                {this.state.countries.map(country => (
-                  <option key={country.code} value={country.code}>
-                    {country.code}
-                  </option>
-                ))}
-              </select>
-            )}
-          </CountrySelector> */}
+          <CountrySelector>
+            News from
+            {this.state.countries &&
+              this.state.countries.map(country => (
+                <div
+                  key={country.code}
+                  onClick={() => this.selectCountry(country.code)}
+                >
+                  <Flag
+                    selected={country.isActive}
+                    src={country.flag}
+                    alt={country.code}
+                  />
+                </div>
+              ))}
+          </CountrySelector>
         </PageTop>
         <PageTitle>
           News about{' '}

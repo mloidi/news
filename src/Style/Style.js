@@ -42,6 +42,16 @@ export const PageTop = styled.div`
 
 export const CountrySelector = styled.div`
   font-size: 1.3rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 1rem;
+  align-content: start;
+`;
+
+export const Flag = styled.img`
+  border: ${props => (props.selected ? '0.2rem solid #ecd018' : 'none')};
+  padding: ${props => (props.selected ? '' : '0.2rem')};
+  cursor: pointer;
 `;
 
 export const CategoryTitle = styled.h2`

@@ -1,7 +1,5 @@
 export const NewsService = {
   getTopHeadlines: async (category, searchBy, country) => {
-    console.log('getTopHeadlines');
-    console.log(country);
     let res;
     const url =
       process.env.REACT_APP_NEWS_URL +
@@ -36,9 +34,18 @@ export const NewsService = {
   },
   getCountries: () => {
     return [
-      { code: 'us', isActive: true },
-      { code: 'fr', isActive: false },
-      { code: 'gb', isActive: false }
+      {
+        code: 'us',
+        isActive: true,
+        flag:
+          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/us.png'
+      },
+      {
+        code: 'ca',
+        isActive: false,
+        flag:
+          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/ca.png'
+      }
     ];
   }
 };
