@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Page = styled.div`
+  opacity: ${props => (props.loading ? '0.2' : '1')};
+`;
+
 export const NewsContainer = styled.div`
   display: grid;
   grid-template-columns: 33% 33% 33%;

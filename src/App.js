@@ -4,7 +4,9 @@ import { Helmet } from 'react-helmet';
 import { NewsService } from './Service/news.service';
 import New from './Components/New';
 import Button from './Components/Button';
+import Loading from './Components/Loading';
 import {
+  Page,
   NewsContainer,
   PageTitle,
   CategoryTitle,
@@ -26,7 +28,8 @@ class App extends Component {
     news: null,
     searchBy: '',
     country: 'us',
-    countries: null
+    countries: null,
+    loading: true
   };
 
   componentDidMount() {
@@ -38,10 +41,14 @@ class App extends Component {
   }
 
   getTopHeadlines = async (category, searchBy, country) => {
+    this.setState({
+      loading: true
+    });
     await NewsService.getTopHeadlines(category, searchBy, country)
       .then(response => {
         this.setState({
-          news: response.articles
+          news: response.articles,
+          loading: false
         });
       })
       .catch(error => {
@@ -115,12 +122,13 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Page loading={this.state.loading}>
         <Helmet>
           <title>
             News about {this.state.category ? this.state.category : '...'}
           </title>
         </Helmet>
+        {this.state.loading && <Loading />}
         <PageTop>
           <div>
             Powered by{' '}
@@ -199,7 +207,7 @@ class App extends Component {
             </Link>
           </div>
         </Footer>
-      </React.Fragment>
+      </Page>
     );
   }
 }
