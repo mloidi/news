@@ -11,12 +11,12 @@ export const NewsService = {
       '&sortBy=popularity' +
       '&apiKey=' +
       process.env.REACT_APP_NEWS_API;
-    const req = new Request(url);
-    await fetch(req)
-      .then(response => {
+    // const req = new Request(url);
+    await fetch(url)
+      .then((response) => {
         res = response.json();
       })
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
     return res;
@@ -29,7 +29,7 @@ export const NewsService = {
       { name: 'health', isActive: false },
       { name: 'science', isActive: false },
       { name: 'sports', isActive: false },
-      { name: 'technology', isActive: false }
+      { name: 'technology', isActive: false },
     ];
   },
   getCountries: () => {
@@ -38,14 +38,14 @@ export const NewsService = {
         code: 'us',
         isActive: true,
         flag:
-          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/us.png'
+          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/us.png',
       },
       {
         code: 'ca',
         isActive: false,
         flag:
-          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/ca.png'
-      }
+          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/ca.png',
+      },
     ];
-  }
+  },
 };
