@@ -1,51 +1,26 @@
 export const NewsService = {
-  getTopHeadlines: async (category, searchBy, country) => {
-    let res;
-    const url =
-      process.env.REACT_APP_NEWS_URL +
-      'top-headlines?country=' +
-      (country ? country : 'us') +
-      (category ? '&category=' + category : '') +
-      (searchBy ? '&q=' + searchBy : '') +
-      '&pageSize=100' +
-      '&sortBy=popularity' +
-      '&apiKey=' +
-      process.env.REACT_APP_NEWS_API;
-    // const req = new Request(url);
-    await fetch(url)
-      .then((response) => {
-        res = response.json();
-      })
-      .catch((error) => {
-        throw error;
-      });
-    return res;
-  },
-  getCategories: () => {
-    return [
-      { name: 'entertainment', isActive: false },
-      { name: 'business', isActive: false },
-      { name: 'general', isActive: false },
-      { name: 'health', isActive: false },
-      { name: 'science', isActive: false },
-      { name: 'sports', isActive: false },
-      { name: 'technology', isActive: false },
-    ];
-  },
-  getCountries: () => {
-    return [
-      {
-        code: 'us',
-        isActive: true,
-        flag:
-          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/us.png',
-      },
-      {
-        code: 'ca',
-        isActive: false,
-        flag:
-          'https://res.cloudinary.com/mloidi/image/upload/c_scale,w_50/v1554644169/mloidi/ca.png',
-      },
-    ];
+  getTopHeadlines: async (queryParams) => {
+    try {
+      const showNewsBy = queryParams.search
+        ? 'search'
+        : queryParams.topic
+        ? `topics/${queryParams.topic}`
+        : 'top-news';
+
+      const url =
+        process.env.REACT_APP_NEWS_URL +
+        showNewsBy +
+        '?country=' +
+        (queryParams.country ? queryParams.country : 'us') +
+        (queryParams.search ? '&q=' + queryParams.search : '') +
+        '&token=' +
+        process.env.REACT_APP_NEWS_API;
+
+      const response = await fetch(url);
+      const res = await response.json();
+      return res;
+    } catch (e) {
+      throw e;
+    }
   },
 };
